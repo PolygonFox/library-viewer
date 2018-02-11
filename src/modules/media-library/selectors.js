@@ -1,3 +1,4 @@
 
-export const getApp = (state) => state.game.app
-export const getWorld = (state) => state.game.app
+export const getMedia = (state) => state['media-library'].media
+export const getNoResults = (state) => state['media-library'].noResults
+

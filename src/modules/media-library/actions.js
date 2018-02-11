@@ -1,16 +1,9 @@
 import { action, create, createRequestTypes } from 'Modules/common/actions';
 
-export const GAME_INTIALIZE = createRequestTypes('GAME_INITIALIZE');
-export const GAME_UNLOAD = createRequestTypes('GAME_UNLOAD');
+export const MEDIA_LIBRARY_FETCH_MEDIA = createRequestTypes('MEDIA_LIBRARY_FETCH_MEDIA');
 
-export const initialize = {
-    request: (element) => action(GAME_INTIALIZE.REQUEST, { element }),
-    success: app => action(GAME_INTIALIZE.SUCCESS, { app }),
-    failure: error => action(GAME_INTIALIZE.FAILURE, { error })
-}
-
-export const unload = {
-    request: () => action(GAME_UNLOAD.REQUEST),
-    success: () => action(GAME_UNLOAD.SUCCESS),
-    failure: error => action(GAME_UNLOAD.FAILURE, { error })
+export const fetchMedia = {
+    request: (page) => action(MEDIA_LIBRARY_FETCH_MEDIA.REQUEST, { page }),
+    success: media => action(MEDIA_LIBRARY_FETCH_MEDIA.SUCCESS, { media }),
+    failure: error => action(MEDIA_LIBRARY_FETCH_MEDIA.FAILURE, { error })
 }

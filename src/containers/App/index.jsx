@@ -26,8 +26,6 @@ import Button from 'Components/UI/Button';
 const StyledApp = styled.div`
     background-color: ${({ theme }) => theme.backgroundColor};
     color: white;
-    height: 100vh;
-    width: 100vw;
     font-family: Lato;
 `
 
@@ -40,17 +38,19 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(rootSaga);
 
 class App extends Component {
-    // static state = {  }
+    
     render() {
         return (
+
+        //     <MainNavigation>
+        //     <Link to="/"><Button>Home</Button></Link>
+        //     <Link to="/"><Button>Test</Button></Link>
+        // </MainNavigation>
             <Provider store={store}>
                 <Router>
                     <ThemeProvider theme={theme}>
                         <StyledApp>
-                            <MainNavigation>
-                                <Link to="/"><Button>Home</Button></Link>
-                                <Link to="/"><Button>Test</Button></Link>
-                            </MainNavigation>
+                           
                             <Route exact path="/" component={MediaLibrary} />
                         </StyledApp>
                     </ThemeProvider>

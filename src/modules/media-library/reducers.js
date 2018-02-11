@@ -1,22 +1,20 @@
 import * as actions from './actions'
 
 const initialState = {
-    app: null,
+    media: [],
+    noResults: false,
 }
 
 export default (state = initialState, action) => {
-    console.log('action -- ', action);
+
     switch (action.type) {
-        case actions.GAME_INTIALIZE.SUCCESS:
+        case actions.MEDIA_LIBRARY_FETCH_MEDIA.SUCCESS:
             return {
                 ...state,
-                app: action.app
+                media: state.media.concat(action.media),
+                noResults: action.media.length === 0
             }
-        case actions.GAME_UNLOAD.SUCCESS:
-            return {
-                ...state,
-                app: null
-            }
+
         default:
             return state;
     }

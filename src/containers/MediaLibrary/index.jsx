@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import MasonryInfiniteScroller from 'react-masonry-infinite';
+import { fetchMedia } from 'Modules/media-library/actions'
+import * as mediaLibrarySelectors from 'Modules/media-library/selectors'
 
+import Config from 'Config'
+
+import Card from './components/Card'
 
 const Masonry = styled(MasonryInfiniteScroller) `
     margin: 0 auto;
+    padding: 0;
 `
 
-const Card = styled.div`
-    width: 30%;
-    box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
+
 
 class MediaLibrary extends Component {
 
@@ -22,23 +22,25 @@ class MediaLibrary extends Component {
         super(props)
 
         this.state = {
-            elements: ["Element", "ELement", "test", "woahh!"]
+            page: 0
         }
     }
 
     render() {
         return (
             <Masonry
-                hasMore={this.state.hasMore}
-                loadMore={() => {
-                    console.log('loadmore')
-
-                    this.setState({ elements: this.state.elements.push("Element") })
+                hasMore={!this.props.noResults}
+                loadMore={(page) => {
+                    if(this.state.page < page) {
+                        this.props.fetchMedia.call(this, page)
+                    }
                 }}
+                loader={<div className="loader" key={0}>Loading ...</div>}
             >
                 {
-                    this.state.elements.map(id =>
-                        <Card key={id}><h2>{id}</h2></Card>
+                    this.props.media.map(media =>
+                        <Card key={media._id} { ...media }>
+                        </Card>
                     )
                 }
             </Masonry>
@@ -50,14 +52,17 @@ class MediaLibrary extends Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        media: mediaLibrarySelectors.getMedia(state),
+        noResults: mediaLibrarySelectors.getNoResults(state)
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        fetchMedia: (page) => {
+            dispatch(fetchMedia.request(page))
+        }
     }
 }
 

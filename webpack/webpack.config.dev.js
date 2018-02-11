@@ -18,7 +18,9 @@ module.exports = {
         alias: {
             Components: path.resolve(__dirname, '../src/components/'),
             Constants: path.resolve(__dirname, '../src/constants/'),
-            Modules: path.resolve(__dirname, '../src/modules/')
+            Modules: path.resolve(__dirname, '../src/modules/'),
+            Config: path.resolve(__dirname, '../src/config'),
+
         }
     },
 
@@ -28,6 +30,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: "/node_modules",
                 loader: "babel-loader",
+                
                 options: {
                     presets: ["env", "react", "stage-0"],
                     plugins: ["react-hot-loader/babel", "transform-decorators-legacy"],
@@ -41,6 +44,7 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "../dist"),
+        headers: { "Access-Control-Allow-Origin": "*" },
         compress: true,
         host: "0.0.0.0",
         historyApiFallback: true,
